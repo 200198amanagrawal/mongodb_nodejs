@@ -2,6 +2,12 @@ const express=require("express");
 const fs=require("fs");
 const data=fs.readFileSync(__dirname+"/hello.txt","utf-8");
 const app=express();
+const validation=function(req,res,next)
+{
+    console.log("validation running");
+    next();
+}
+app.use(validation);
 app.get("/",(req,res)=>{
    res.send("Hello world");
 })
