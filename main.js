@@ -1,12 +1,15 @@
 const express=require("express");
+var bodyParser = require('body-parser')
 const app=express();
+var jsonParser = bodyParser.json();
+app.use(bodyParser.urlencoded({extended:false}));
+app.use(jsonParser);
 app.set("view engine","twig");
 app.set("views","./public/views");
 app.get("/",(req,res)=>{
-    res.render("index",{title:"Twigrs page",message:"Hello world"});//simple twig program
+    res.render("index",{title:"Login page",message:"Hello world"});//simple twig program
  })
- app.get("/about/:a-:b",(req,res)=>{//using some calculation
-     res.render("about",{title:"Calculation",sum:parseInt(req.params.a)+parseInt(req.params.b),sub:req.params.a-req.params.b,
-    mul:req.params.a*req.params.b})
- })
+app.post("/",(req,res)=>{
+    res.render("form",{title:"User's page",name:req.body.name,password:req.body.password});
+})
 app.listen(3000);
