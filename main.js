@@ -1,9 +1,9 @@
 const express=require("express");
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser')//defining the bodyparser
 const app=express();
 var jsonParser = bodyParser.json();
-app.use(bodyParser.urlencoded({extended:false}));
-app.use(jsonParser);
+app.use(bodyParser.urlencoded({extended:false}));//mandatory line
+app.use(jsonParser);//mandatory line
 app.set("view engine","twig");
 app.set("views","./public/views");
 app.get("/",(req,res)=>{
