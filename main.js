@@ -19,7 +19,12 @@ app.get("/",(req,res)=>{
 app.post("/",urlencoder,[
     check("name","Username is invalid").isEmail(),//2nd arg is message for wrong validation and also we have to check inside this array every input that we are passing.
     check("password","Password must be more than 5").isLength({min:5}),
-    check("cpassword","Confirm Password must be more than 5").isLength({min:5})
+    check("cpassword").custom((value, { req })=>{
+        if (value !== req.body.password) {
+            throw new Error('Password confirmation does not match password');
+          }
+          return true;
+    })
 ]
 ,
 (req,res)=>{
