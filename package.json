@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/200198amanagrawal/node_first_program#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "pug": "^2.0.4"
   }
 }
