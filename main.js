@@ -23,6 +23,12 @@ app.post("/",urlencoder,[
 (req,res)=>{
     const errors=validationResult(req);//error is tored here.
     console.log(errors.mapped());
-    res.render("form",{title:"User's page",error:errors.mapped()});
+    if(!errors.isEmpty())
+    {
+        res.render("index",{title:"Login's page",error:errors.mapped()});
+    }
+    else{
+        res.render("form",{title:"User's page",name:req.body.name,password:req.body.password});
+    }
 });
 app.listen(3000);
