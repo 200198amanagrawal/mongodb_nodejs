@@ -1,6 +1,7 @@
 const express=require("express");
 var bodyParser = require('body-parser')//defining the bodyparser
 const { check, validationResult } = require('express-validator');
+const { matchedData,sanitizeBody } = require('express-validator');
 const urlencoder=bodyParser.urlencoded({extended:false});
 const app=express();
 var jsonParser = bodyParser.json();
@@ -16,8 +17,9 @@ app.get("/",(req,res)=>{
     res.send("welcome"+req.body.name);
  })
 app.post("/",urlencoder,[
-    check("name","Username is invalid").isEmail(),//2nd arg is message for wrong validation.
-    check("password","Password must be more than 5").isLength({min:5})
+    check("name","Username is invalid").isEmail(),//2nd arg is message for wrong validation and also we have to check inside this array every input that we are passing.
+    check("password","Password must be more than 5").isLength({min:5}),
+    check("cpassword","Confirm Password must be more than 5").isLength({min:5})
 ]
 ,
 (req,res)=>{
@@ -25,10 +27,13 @@ app.post("/",urlencoder,[
     console.log(errors.mapped());
     if(!errors.isEmpty())
     {
-        res.render("index",{title:"Login's page",error:errors.mapped()});
+        const user=matchedData(req);
+        res.render("index",{title:"Login's page",error:errors.mapped(),user:user});
     }
     else{
-        res.render("form",{title:"User's page",name:req.body.name,password:req.body.password});
+        const user=matchedData(req);
+        console.log(user);
+        res.render("form",{title:"User's page",user:user});
     }
 });
 app.listen(3000);
