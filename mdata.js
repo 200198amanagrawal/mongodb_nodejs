@@ -1,5 +1,5 @@
 var mongoose=require("mongoose");//general way to make a schema in mongoose or mongodb.
-mongoose.connect('mongodb://localhost:27017/employee', {useNewUrlParser: true});
+mongoose.connect('mongodb://amanagra:awesomeman98@ds045897.mlab.com:45897/nodejs_tutorial_aman', {useNewUrlParser: true});
 var conn=mongoose.connection;
 var employeeSchema=new mongoose.Schema({
     name:String,
@@ -25,27 +25,9 @@ conn.on("disconnected",function(){
 });
 conn.on("error",console.error.bind(console,"connection error:"));
 conn.once("open",function(){
-/*employees.save(function(err,res){
+employees.save(function(err,res){
 if(err) throw errors;
 console.log(res);
 conn.close();
-});*/ //function for saving it.
-employeeModel.find({},function(err,data)//finding the data
-{
-    if(err) throw errors;
-    console.log(data);
-    conn.close();
-});
-employeeModel.findOne({},function(err,data)//finding the data
-{
-    if(err) throw errors;
-    console.log(data);
-    conn.close();
-});
-employeeModel.find({name:"yo"},function(err,data)//finding the data from a particular value
-{
-    if(err) throw errors;
-    console.log(data);
-    conn.close();
 });
 });
